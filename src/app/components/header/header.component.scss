@@ -1,0 +1,67 @@
+header {
+  height: 50px;
+  background-color: rgb(215, 233, 50);
+
+  > .container {
+    padding: 0 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+
+    .input-search {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      width: 50%;
+
+      input {
+        height: 40px;
+        border: none;
+        border-radius: 8px;
+        outline: none;
+        padding-left: 6px;
+        font-size: medium;
+        max-width: 300px;
+        width: 80%;
+      }
+
+      button {
+        border: none;
+        background: none;
+      }
+    }
+
+    select {
+      height: 40px;
+      border: none;
+      outline: none;
+      border-radius: 8px;
+    }
+  }
+}
+
+.material-icons {
+  font-size: 36px;
+
+  &.md-blue {
+    color: rgb(58, 94, 255);
+  }
+}
+
+@media (min-width: 800px) {
+  header {
+    height: 70px;
+
+    > .container {
+      .input-search {
+        gap: 5px;
+      }
+
+      select {
+        height: 50px;
+        font-size: medium;
+      }
+    }
+  }
+}
