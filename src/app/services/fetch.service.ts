@@ -13,6 +13,11 @@ export class FetchService {
   private _body?: Body;
   private _options?: Options;
 
+  reset() {
+    this._params = {};
+    this._headers = {};
+  }
+
   setUrl(url: string) {
     this._url = url;
 
@@ -53,6 +58,7 @@ export class FetchService {
     if (this._options) Object.assign(options, { ...this._options });
     if (hasHeaders) Object.assign(options, { headers: this._headers });
     if (hasParams) Object.assign(options, { params: this._params });
+    this.reset();
 
     return options;
   }
