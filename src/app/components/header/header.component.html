@@ -1,14 +1,14 @@
 <header>
   <div class="container">
     <div class="input-search">
-      @if (toggleSearch() || isLargeScreen()) {
-      <input
-        type="text"
-        name="search"
-        id="search"
-        [formControl]="search"
-        ngDefaultControl="search"
-      />
+      @if (toggleSearch() || !isSmallScreen()) {
+        <input
+          type="text"
+          name="search"
+          id="search"
+          [formControl]="search"
+          ngDefaultControl="search"
+        />
       }
       <button type="button" (click)="handleSearch()">
         <span [class]="toggleButtonClass()">search</span>
@@ -16,7 +16,7 @@
     </div>
     <select
       name="page"
-      id="1"
+      id="select-page"
       [formControl]="togglePage"
       ngDefaultControl="togglePage"
       (change)="handlePage()"

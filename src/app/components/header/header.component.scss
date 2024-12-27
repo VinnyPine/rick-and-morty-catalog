@@ -1,6 +1,9 @@
 header {
   height: 50px;
   background-color: rgb(215, 233, 50);
+  position: sticky;
+  top: 0;
+  z-index: 1;
 
   > .container {
     padding: 0 5px;
