@@ -5,6 +5,7 @@ import { MenuComponent } from "../../components/menu/menu.component";
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Gender, Status } from '../../types/rickandmortyapi';
 import { RickandmortyapiService } from '../../services/rickandmortyapi.service';
+import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,18 +27,23 @@ export class DashboardComponent implements OnInit {
     types: new FormControl<string | null>(null),
   });
 
+  togglePage = new FormControl<'character' | 'episode'>('character', { nonNullable: true });
+
   handleSearch() {
-    console.warn(this.filtersForm.value);
+    if (this.togglePage.value === 'character') {
+      this.filtersForm.setControl(this.searchBy.value, new FormControl(this.search.value));
 
-    this.filtersForm.setControl(this.searchBy.value, new FormControl(this.search.value));
-
-    this.rickandmortyapiService.getAllCharacters(this.filtersForm.value);
-
-    this.filtersForm.reset({
-      status: this.filtersForm.value.status,
-      gender: this.filtersForm.value.gender,
-    });
+      this.rickandmortyapiService.getAllCharacters(this.filtersForm.value);
+    } else {
+      this.rickandmortyapiService.getAllEpisodes({ [this.searchBy.value]: this.search.value });
+    }
   }
 
-  ngOnInit(): void {}
+  toggleList(event: EventEmitter) {
+    this.handleSearch()
+  }
+
+  ngOnInit(): void {
+    this.handleSearch()
+  }
 }

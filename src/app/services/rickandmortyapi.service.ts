@@ -1,15 +1,14 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
 import { FetchService } from './fetch.service';
 import {
   Character,
   endpoint,
+  Episode,
   FilterCharacters,
+  FilterEpisodes,
   Response,
   State,
 } from '../types/rickandmortyapi';
-import { catchError, Observable, throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -18,19 +17,38 @@ export class RickandmortyapiService {
   private fetch = inject(FetchService);
   private apiUrl = 'https://rickandmortyapi.com/api';
 
-  private charactersList = signal<Character[] | null>(null);
-  private selectedCharacter = signal<Character | null>(null);
   private state = signal<State>({
     isLoading: false,
     hasNextPage: false,
     currentPage: 1,
   });
 
+  private charactersList = signal<Character[] | null>(null);
+  private selectedCharacter = signal<Character | null>(null);
+
+  private episodesList = signal<Episode[] | null>(null);
+  private selectedEpisode = signal<Episode | null>(null);
+
   constructor() {
     this.fetch.setUrl(this.apiUrl);
   }
 
-  private trimFalsyValues(filter?: FilterCharacters) {
+  getState() {
+    return this.state();
+  }
+
+  private startLoading() {
+    this.state.update((state) => ({ ...state, isLoading: true }));
+  }
+
+  reset() {
+    this.charactersList.set(null);
+    this.selectedCharacter.set(null);
+    this.episodesList.set(null);
+    this.selectedEpisode.set(null);
+  }
+
+  private trimFalsyValues(filter?: FilterCharacters | FilterEpisodes) {
     if (!filter) return {};
 
     const filterMap = Object.entries(filter).filter(([_, value]) =>
@@ -40,43 +58,38 @@ export class RickandmortyapiService {
     return Object.fromEntries(filterMap);
   }
 
-  private startLoading() {
-    this.state.update((state) => ({ ...state, isLoading: true }));
-  }
-
   getAllCharacters(filter?: FilterCharacters) {
-    console.log("🚀 ~ RickandmortyapiService ~ getAllCharacters ~ filter:", filter)
     this.startLoading();
     const fetch$ = this.fetch
       .params(this.trimFalsyValues(filter))
-      .get<Response<Character>>(endpoint.CHARACTER)
+      .get<Response<Character>>(endpoint.CHARACTER);
 
-      fetch$.subscribe({
-        next: (res) => {
-          this.charactersList.set(res.results);
-          this.state.set({
-            isLoading: false,
-            hasNextPage: Boolean(res.info.next),
-            currentPage: 1,
-            lastFilter: filter,
-          });
-        },
-        error: (err) => {
-          this.charactersList.set(null);
-          this.state.set({
-            isLoading: false,
-            hasNextPage: false,
-            currentPage: 1,
-          });
-        },
-      });
+    fetch$.subscribe({
+      next: (res) => {
+        this.charactersList.set(res.results);
+        this.state.set({
+          isLoading: false,
+          hasNextPage: Boolean(res.info.next),
+          currentPage: 1,
+          lastFilter: filter,
+        });
+      },
+      error: (err) => {
+        this.charactersList.set(null);
+        this.state.set({
+          isLoading: false,
+          hasNextPage: false,
+          currentPage: 1,
+        });
+      },
+    });
 
-    return fetch$
+    return fetch$;
   }
 
   nextPageOfCharacters(page?: number) {
     const { lastFilter, currentPage, hasNextPage, isLoading } = this.state();
-    if (!hasNextPage ||  isLoading) return;
+    if (!hasNextPage || isLoading) return;
     const newPage = page || currentPage + 1;
 
     this.startLoading();
@@ -98,12 +111,11 @@ export class RickandmortyapiService {
   }
 
   getCharacter(id: number) {
-    const fest$ = this.fetch
-      .get<Character>(endpoint.CHARACTER, String(id))
+    const fest$ = this.fetch.get<Character>(endpoint.CHARACTER, String(id));
 
-      fest$.subscribe((res) => {
-        this.selectedCharacter.set(res);
-      });
+    fest$.subscribe((res) => {
+      this.selectedCharacter.set(res);
+    });
 
     return fest$;
   }
@@ -116,12 +128,73 @@ export class RickandmortyapiService {
     return this.selectedCharacter();
   }
 
-  getState() {
-    return this.state();
+  getAllEpisodes(filter?: FilterEpisodes) {
+    this.startLoading();
+    const fetch$ = this.fetch
+      .params(this.trimFalsyValues(filter))
+      .get<Response<Episode>>(endpoint.EPISODE);
+
+    fetch$.subscribe({
+      next: (res) => {
+        this.episodesList.set(res.results);
+        this.state.set({
+          isLoading: false,
+          hasNextPage: Boolean(res.info.next),
+          currentPage: 1,
+          lastFilter: filter,
+        });
+      },
+      error: (err) => {
+        this.episodesList.set(null);
+        this.state.set({
+          isLoading: false,
+          hasNextPage: false,
+          currentPage: 1,
+        });
+      },
+    });
+
+    return fetch$;
   }
 
-  reset() {
-    this.charactersList.set(null);
-    this.selectedCharacter.set(null);
+  nextPageOfEpisodes(page?: number) {
+    const { lastFilter, currentPage, hasNextPage, isLoading } = this.state();
+    if (!hasNextPage || isLoading) return;
+    const newPage = page || currentPage + 1;
+
+    this.startLoading();
+    this.fetch
+      .params({ page: newPage, ...this.trimFalsyValues(lastFilter) })
+      .get<Response<Episode>>(endpoint.EPISODE)
+      .subscribe((res) => {
+        this.episodesList.update((value) => {
+          if (!value) return res.results;
+          return { ...value, ...res.results };
+        });
+        this.state.update((state) => ({
+          ...state,
+          isLoading: false,
+          hasNextPage: Boolean(res.info.next),
+          currentPage: newPage,
+        }));
+      });
+  }
+
+  getEpisode(id: number) {
+    const fest$ = this.fetch.get<Episode>(endpoint.EPISODE, String(id));
+
+    fest$.subscribe((res) => {
+      this.selectedEpisode.set(res);
+    });
+
+    return fest$;
+  }
+
+  listEpisodes() {
+    return this.episodesList();
+  }
+
+  episode() {
+    return this.selectedEpisode();
   }
 }

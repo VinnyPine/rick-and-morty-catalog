@@ -1,17 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RickandmortyapiService } from '../../services/rickandmortyapi.service';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
-  selector: 'app-characters-list',
-  imports: [ScrollingModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './characters-list.component.html',
-  styleUrl: './characters-list.component.scss',
+  selector: 'app-episodes-list',
+  imports: [],
+  templateUrl: './episodes-list.component.html',
+  styleUrl: './episodes-list.component.scss'
 })
-export class CharactersListComponent implements OnInit {
+export class EpisodesListComponent {
   private rickandmortyapiService = inject(RickandmortyapiService);
   private router = inject(Router);
 
@@ -19,7 +17,8 @@ export class CharactersListComponent implements OnInit {
   isSmallScreen = signal(false);
 
   list() {
-    return this.rickandmortyapiService.listCharacters();
+  const list = this.rickandmortyapiService.listEpisodes();
+    return list;
   }
 
   listHasItems() {
@@ -27,18 +26,18 @@ export class CharactersListComponent implements OnInit {
     return list !== null && Boolean(list.length);
   }
 
-  selectCharacter(id: number) {
-    this.router.navigate(['character', id]);
+  selectEpisode(id: number) {
+    this.router.navigate(['episode']);
   }
 
   nextPage() {
-    this.rickandmortyapiService.nextPageOfCharacters();
+    this.rickandmortyapiService.nextPageOfEpisodes();
   }
 
   scrolling(index: number) {
     const list = this.list();
     if (list !== null && index >= list.length - 10) {
-      this.rickandmortyapiService.nextPageOfCharacters();
+      this.rickandmortyapiService.nextPageOfEpisodes();
     }
   }
 

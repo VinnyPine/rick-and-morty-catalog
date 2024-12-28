@@ -1,0 +1,50 @@
+@if (listHasItems()) {
+<ul>
+  @for (ep of list(); track ep.id;) {
+  <li class="card" (click)="selectEpisode(ep.id)">
+    <div class="name">{{ ep.name }}</div>
+    <div class="content">
+      <div>
+        episode: <span>{{ ep.episode }}</span>
+      </div>
+      <div>
+        air_date: <span>{{ ep.air_date }}</span>
+      </div>
+    </div>
+  </li>
+  }
+</ul>
+} @else {
+<div class="no-items"><span>No items, Try another filter.</span></div>
+}
+
+<!-- <cdk-virtual-scroll-viewport
+  class="viewport"
+  itemSize="100"
+  (scrolledIndexChange)="scrolling($event)"
+>
+  <ul>
+    <ng-container *cdkVirtualFor="let char of list(); let count = count; let last = last;">
+      <li class="card" (click)="selectCharacter(char.id)">
+        <img [src]="char.image" />
+        <div class="info">
+          <span class="name">{{ char.name }}</span>
+          <div class="content">
+            <span
+              >status: <span class="green">{{ char.status }}</span></span
+            >
+            <span
+              >gender: <span class="green">{{ char.gender }}</span></span
+            >
+            <span
+              >origin: <span class="green">{{ char.origin.name }}</span></span
+            >
+            <span
+              >species: <span class="green">{{ char.species }}</span></span
+            >
+          </div>
+        </div>
+      </li>
+    </ng-container>
+  </ul>
+</cdk-virtual-scroll-viewport> -->

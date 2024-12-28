@@ -3,20 +3,20 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: yellow;
+  background-color: var(--color-yellow-200);
 
   button {
     padding: 10px;
     border: none;
     border-radius: 8px;
-    background-color: rgb(213 201 52);
+    background-color: var(--color-yellow-100);
     font-size: large;
   }
 }
 
 section {
-  background-color: rgb(74, 126, 223);
-  color: white;
+  background-color: var(--color-blue-200);
+  color: var(--color-white);
   height: 90vh;
 
   .container {

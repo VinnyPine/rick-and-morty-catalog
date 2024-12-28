@@ -2,8 +2,11 @@
   [searchBy]="searchBy"
   [searchInput]="search"
   (submit)="handleSearch()"
+  [togglePage]="togglePage"
 ></app-header>
-<div class="wrapper">
-  <app-menu [filtersForm]="filtersForm"></app-menu>
-  <router-outlet />
+<div class="container">
+  @if (togglePage.value === 'character') {
+    <app-menu [filtersForm]="filtersForm"></app-menu>
+  }
+  <router-outlet (activate)="toggleList($event)" />
 </div>

@@ -1,6 +1,6 @@
 header {
   height: 50px;
-  background-color: rgb(215, 233, 50);
+  background-color: var(--color-yellow-200);
 
   > .container {
     padding: 0 5px;
@@ -16,7 +16,7 @@ header {
       gap: 2px;
       height: 50px;
       width: 450px;
-      background-color: rgb(238, 238, 73);
+      background-color: var(--color-yellow-100);
       border-radius: 8px;
 
       .search-input {
@@ -57,7 +57,7 @@ header {
       border: none;
       outline: none;
       border-radius: 8px;
-      background-color: rgb(238, 238, 73);
+      background-color: var(--color-yellow-100);
     }
   }
 }
@@ -66,7 +66,7 @@ header {
   font-size: 36px;
 
   &.md-blue {
-    color: rgb(58, 94, 255);
+    color: var(--color-blue-100);
   }
 }
 

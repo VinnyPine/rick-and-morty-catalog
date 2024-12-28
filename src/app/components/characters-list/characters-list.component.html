@@ -1,4 +1,3 @@
-<div class="container">
   @if (listHasItems()) {
     <ul>
       @for (char of list(); track char.id;) {
@@ -28,7 +27,6 @@
   } @else {
   <div class="no-items"><span>No items, Try another filter.</span></div>
   }
-</div>
 
 <!-- <cdk-virtual-scroll-viewport
     class="viewport"
