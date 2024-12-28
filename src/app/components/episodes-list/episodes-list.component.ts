@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { RickandmortyapiService } from '../../services/rickandmortyapi.service';
 import { Router } from '@angular/router';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-episodes-list',
@@ -12,9 +11,6 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class EpisodesListComponent {
   private rickandmortyapiService = inject(RickandmortyapiService);
   private router = inject(Router);
-
-  breakpointObserver = inject(BreakpointObserver);
-  isSmallScreen = signal(false);
 
   list() {
   const list = this.rickandmortyapiService.listEpisodes();
@@ -34,20 +30,15 @@ export class EpisodesListComponent {
     this.rickandmortyapiService.nextPageOfEpisodes();
   }
 
-  scrolling(index: number) {
-    const list = this.list();
-    if (list !== null && index >= list.length - 10) {
-      this.rickandmortyapiService.nextPageOfEpisodes();
-    }
+  onScroll(event: Event) {
+    const target = event.target as HTMLUListElement;
+
+    const scrollEnd =
+      target.scrollHeight - target.offsetHeight === target.scrollTop;
+    if (scrollEnd) return this.nextPage();
   }
 
-  ngOnInit(): void {
-    this.breakpointObserver.observe([
-      Breakpoints.XSmall
-    ]).subscribe(res => {
-      this.isSmallScreen.set(res.matches)
-    })
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.rickandmortyapiService.reset();

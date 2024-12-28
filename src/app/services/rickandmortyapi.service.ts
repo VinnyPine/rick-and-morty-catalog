@@ -99,7 +99,7 @@ export class RickandmortyapiService {
       .subscribe((res) => {
         this.charactersList.update((value) => {
           if (!value) return res.results;
-          return { ...value, ...res.results };
+          return value.concat(res.results);
         });
         this.state.update((state) => ({
           ...state,
@@ -169,7 +169,7 @@ export class RickandmortyapiService {
       .subscribe((res) => {
         this.episodesList.update((value) => {
           if (!value) return res.results;
-          return { ...value, ...res.results };
+          return value.concat(res.results);
         });
         this.state.update((state) => ({
           ...state,

@@ -1,11 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Gender, Status } from '../../types/rickandmortyapi';
 import { RickandmortyapiService } from '../../services/rickandmortyapi.service';
-import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +14,6 @@ import { EventEmitter } from 'stream';
 })
 export class DashboardComponent implements OnInit {
   rickandmortyapiService = inject(RickandmortyapiService);
-  route = inject(ActivatedRoute);
   router = inject(Router);
 
   search = new FormControl('', { nonNullable: true });
@@ -47,7 +45,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  toggleList(event: EventEmitter) {
+  toggleList() {
     this.handleSearch();
   }
 
