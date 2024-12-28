@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
-import { RouterOutlet } from '@angular/router';
-import { MenuComponent } from "../../components/menu/menu.component";
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { MenuComponent } from '../../components/menu/menu.component';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Gender, Status } from '../../types/rickandmortyapi';
 import { RickandmortyapiService } from '../../services/rickandmortyapi.service';
@@ -11,39 +11,54 @@ import { EventEmitter } from 'stream';
   selector: 'app-dashboard',
   imports: [RouterOutlet, HeaderComponent, MenuComponent, ReactiveFormsModule],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
   rickandmortyapiService = inject(RickandmortyapiService);
+  route = inject(ActivatedRoute);
+  router = inject(Router);
 
   search = new FormControl('', { nonNullable: true });
-  searchBy = new FormControl<'name' | 'species' | 'types'>('name', { nonNullable: true })
+  searchBy = new FormControl<'name' | 'species' | 'types'>('name', {
+    nonNullable: true,
+  });
 
   filtersForm = new FormGroup({
     status: new FormControl<Status | null>(null),
     gender: new FormControl<Gender | null>(null),
-    name: new FormControl<string | null>(null),
-    species: new FormControl<string | null>(null),
-    types: new FormControl<string | null>(null),
   });
 
-  togglePage = new FormControl<'character' | 'episode'>('character', { nonNullable: true });
+  togglePage = new FormControl<'character' | 'episode'>('character', {
+    nonNullable: true,
+  });
 
   handleSearch() {
     if (this.togglePage.value === 'character') {
-      this.filtersForm.setControl(this.searchBy.value, new FormControl(this.search.value));
+      const filter = {
+        ...this.filtersForm.value,
+        [this.searchBy.value]: this.search.value,
+      };
 
-      this.rickandmortyapiService.getAllCharacters(this.filtersForm.value);
+      this.rickandmortyapiService.getAllCharacters(filter);
     } else {
-      this.rickandmortyapiService.getAllEpisodes({ [this.searchBy.value]: this.search.value });
+      this.rickandmortyapiService.getAllEpisodes({
+        [this.searchBy.value]: this.search.value,
+      });
     }
   }
 
   toggleList(event: EventEmitter) {
-    this.handleSearch()
+    this.handleSearch();
   }
 
   ngOnInit(): void {
-    this.handleSearch()
+    const page = this.router.url.replace('/', '');
+    if (page === 'episode') this.togglePage.setValue(page);
+
+    this.filtersForm.valueChanges.subscribe((value) => {
+      this.handleSearch();
+    });
+
+    this.handleSearch();
   }
 }

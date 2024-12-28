@@ -27,7 +27,7 @@ export class EpisodesListComponent {
   }
 
   selectEpisode(id: number) {
-    this.router.navigate(['episode']);
+    this.router.navigate(['episode', id]);
   }
 
   nextPage() {
