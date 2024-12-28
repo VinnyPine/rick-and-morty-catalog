@@ -12,8 +12,12 @@
           ngDefaultControl="searchBy"
         >
           <option value="name">Name</option>
+          @if (togglePage.value === 'character') {
           <option value="species">Species</option>
           <option value="type">Types</option>
+          } @else {
+          <option value="episode">Episode</option>
+          }
         </select>
         <input
           type="text"

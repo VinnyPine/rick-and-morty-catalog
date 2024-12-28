@@ -23,19 +23,19 @@ export class HeaderComponent implements OnInit {
   isSmallScreen = signal(false);
   toggleSearch = signal(false);
 
-  togglePage = new FormControl('character', { nonNullable: true });
-
-  @Input() searchBy!: FormControl;
+  @Input() searchBy!: FormControl<string>;
   @Input() searchInput!: FormControl<string>;
+  @Input() togglePage!: FormControl<'character' | 'episode'>;
 
   submit = output();
 
   handleSubmit(e?: SubmitEvent) {
-    if (e) e.preventDefault()
+    if (e) e.preventDefault();
     this.submit.emit();
   }
 
   handlePage() {
+    this.searchBy.setValue('name');
     this.router.navigate([this.togglePage.value]);
   }
 

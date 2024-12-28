@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { HeaderComponent } from './components/header/header.component';
 import { CharactersListComponent } from './components/characters-list/characters-list.component';
 import { CharacterComponent } from './pages/character/character.component';
+import { EpisodesListComponent } from './components/episodes-list/episodes-list.component';
 
 export const routes: Routes = [
   {
@@ -15,7 +15,7 @@ export const routes: Routes = [
       },
       {
         path: 'episode',
-        component: HeaderComponent, //select route test
+        component: EpisodesListComponent,
       },
     ],
   },
