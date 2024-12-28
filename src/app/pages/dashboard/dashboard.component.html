@@ -8,5 +8,5 @@
   @if (togglePage.value === 'character') {
     <app-menu [filtersForm]="filtersForm"></app-menu>
   }
-  <router-outlet (activate)="toggleList($event)" />
+  <router-outlet (activate)="toggleList()" />
 </div>

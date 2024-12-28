@@ -1,22 +1,22 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { RickandmortyapiService } from '../../services/rickandmortyapi.service';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-characters-list',
-  imports: [ScrollingModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [],
   templateUrl: './characters-list.component.html',
   styleUrl: './characters-list.component.scss',
 })
 export class CharactersListComponent implements OnInit {
   private rickandmortyapiService = inject(RickandmortyapiService);
   private router = inject(Router);
-
-  breakpointObserver = inject(BreakpointObserver);
-  isSmallScreen = signal(false);
 
   list() {
     return this.rickandmortyapiService.listCharacters();
@@ -35,20 +35,15 @@ export class CharactersListComponent implements OnInit {
     this.rickandmortyapiService.nextPageOfCharacters();
   }
 
-  scrolling(index: number) {
-    const list = this.list();
-    if (list !== null && index >= list.length - 10) {
-      this.rickandmortyapiService.nextPageOfCharacters();
-    }
+  onScroll(event: Event) {
+    const target = event.target as HTMLUListElement;
+
+    const scrollEnd =
+      target.scrollHeight - target.offsetHeight === target.scrollTop;
+    if (scrollEnd) return this.nextPage();
   }
 
-  ngOnInit(): void {
-    this.breakpointObserver.observe([
-      Breakpoints.XSmall
-    ]).subscribe(res => {
-      this.isSmallScreen.set(res.matches)
-    })
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.rickandmortyapiService.reset();

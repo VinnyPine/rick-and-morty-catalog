@@ -1,59 +1,61 @@
-# RickAndMortyCatalog
+# Rick and Morty Catalog
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+Rick and Morty Catalog é uma aplicação que consome a [Rick and Morty API](https://rickandmortyapi.com/) para disponibilizar um catálogo de personagens e episódios da série. A aplicação permite filtrar e pesquisar personagens por nome, espécie ou tipo, além de oferecer opções de filtragem por status (alive, dead, unknown) e gênero (male, female, genderless, unknown). Também é possível pesquisar episódios por nome ou código do episódio (padrão S01E02 para temporada 1, episódio 2).
 
-## Development server
+## Funcionalidades Principais
 
-To start a local development server, run:
+- **Catálogo de Personagens**: Pesquise e filtre personagens por nome, espécie, tipo, status e gênero.
+- **Catálogo de Episódios**: Pesquise episódios por nome ou código do episódio.
+- **Detalhes dos Personagens**: Clique em um card de personagem para ver mais detalhes.
+- **Detalhes dos Episódios**: Clique em um card de episódio para ver mais detalhes.
+- **Versão Mobile**: Implementação futura da versão mobile.
 
+## Tecnologias Utilizadas
+
+- [Angular 19](https://angular.dev/)
+- [Server-Side Rendering (SSR)](https://angular.dev/guide/ssr)
+- [Rick and Morty API](https://rickandmortyapi.com/)
+
+## Instalação
+
+Siga os passos abaixo para instalar e executar a aplicação:
+
+1. Clone o repositório:
 ```bash
-ng serve
+git clone https://github.com/VinnyPine/rick-and-morty-catalog.git
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+2. Navegue até o diretório do projeto:
 ```bash
-ng generate component component-name
+cd rick-and-morty-catalog
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+3. Instale as dependências:
 ```bash
-ng generate --help
+npm install
 ```
 
-## Building
-
-To build the project run:
-
+4. Inicie a aplicação:
 ```bash
-ng build
+npm start
+```
+5. Para rodar os testes:
+```bash
+npm test
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
+## Como Usar
+### 1. Página de Personagens (Characters):
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- Use a barra de pesquisa para selecionar uma das opções de pesquisa (name, species, type) e digite a pesquisa.
 
-```bash
-ng test
-```
+- Use o menu à esquerda para selecionar os filtros de status e gênero.
 
-## Running end-to-end tests
+- A lista de personagens aparecerá à direita. Clique em um card de personagem para ver mais detalhes.
 
-For end-to-end (e2e) testing, run:
+### 2. Página de Episódios (Episodes):
 
-```bash
-ng e2e
-```
+- Use a barra de pesquisa para selecionar uma das opções de pesquisa (name, episode) e digite a pesquisa.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- A lista de episódios aparecerá centralizada abaixo. Clique em um card de episódio para ver mais detalhes.

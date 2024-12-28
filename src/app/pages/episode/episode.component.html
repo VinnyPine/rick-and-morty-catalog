@@ -1,0 +1,24 @@
+<header>
+  <button type="button" (click)="backToSearch()">Back to Search</button>
+</header>
+<section>
+  <div class="container">
+    @if (episode(); as ep) {
+    <div class="wrapper">
+      <div class="info">
+        <span class="name">{{ ep.name }}</span>
+        <span class="key">
+          status:
+          <span class="value">{{ ep.episode }}</span>
+        </span>
+        <span class="key">
+          gender:
+          <span class="value">{{ ep.air_date }}</span>
+        </span>
+      </div>
+    </div>
+    } @else {
+    <div>Empty...</div>
+    }
+  </div>
+</section>

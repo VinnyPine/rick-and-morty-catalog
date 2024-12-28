@@ -2,10 +2,10 @@ ul {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-content: start;
   gap: 4px;
   height: 100%;
   overflow: auto;
-  background-color: var(--color-blue-200);
 
   .card {
     display: flex;
@@ -75,7 +75,6 @@ ul {
 
 @media (min-width: 1000px) {
   .card {
-    max-width: 350px;
-    width: 45%;
+    min-width: 480px;
   }
 }
