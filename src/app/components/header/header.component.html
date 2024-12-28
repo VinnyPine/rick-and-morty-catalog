@@ -1,0 +1,49 @@
+<header>
+  <div class="container">
+    <form class="input-wrapper" (submit)="handleSubmit($event)">
+      @if (toggleSearch() || !isSmallScreen()) {
+      <div class="search-input">
+        <select
+          class="search"
+          title="select search by"
+          name="searchBy"
+          id="select-Search"
+          [formControl]="searchBy"
+          ngDefaultControl="searchBy"
+        >
+          <option value="name">Name</option>
+          @if (togglePage.value === 'character') {
+          <option value="species">Species</option>
+          <option value="type">Types</option>
+          } @else {
+          <option value="episode">Episode</option>
+          }
+        </select>
+        <input
+          type="text"
+          name="search"
+          placeholder="Search"
+          id="search"
+          [formControl]="searchInput"
+          ngDefaultControl="searchInput"
+        />
+      </div>
+      }
+      <button type="button" (click)="handleSubmit()">
+        <span [class]="toggleButtonClass()">search</span>
+      </button>
+    </form>
+    <select
+      class="page"
+      title="select page"
+      name="page"
+      id="select-page"
+      [formControl]="togglePage"
+      ngDefaultControl="togglePage"
+      (change)="handlePage()"
+    >
+      <option value="character">Character</option>
+      <option value="episode">Episode</option>
+    </select>
+  </div>
+</header>

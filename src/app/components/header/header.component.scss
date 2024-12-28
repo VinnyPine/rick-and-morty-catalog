@@ -1,0 +1,88 @@
+header {
+  height: 50px;
+  background-color: var(--color-yellow-200);
+
+  > .container {
+    padding: 0 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      gap: 2px;
+      height: 50px;
+      width: 450px;
+      background-color: var(--color-yellow-100);
+      border-radius: 8px;
+
+      .search-input {
+        display: flex;
+        align-items: center;
+
+        height: 40px;
+        border: none;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 80%;
+
+        select {
+          height: 100%;
+          width: 30%;
+          border-radius: 0;
+        }
+
+        input {
+          height: 100%;
+          border: none;
+          outline: none;
+          padding-left: 6px;
+          font-size: medium;
+          width: 100%;
+          background: none;
+        }
+      }
+
+      button {
+        border: none;
+        background: none;
+      }
+    }
+
+    select {
+      height: 40px;
+      border: none;
+      outline: none;
+      border-radius: 8px;
+      background-color: var(--color-yellow-100);
+    }
+  }
+}
+
+.material-icons {
+  font-size: 36px;
+
+  &.md-blue {
+    color: var(--color-blue-100);
+  }
+}
+
+@media (min-width: 800px) {
+  header {
+    height: 10vh;
+
+    > .container {
+      .input-search {
+        gap: 5px;
+      }
+
+      select {
+        height: 50px;
+        font-size: medium;
+      }
+    }
+  }
+}
