@@ -1,17 +1,14 @@
 import {
   Component,
   inject,
+  Input,
   OnInit,
   output,
   signal,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  BreakpointObserver,
-  Breakpoints,
-} from '@angular/cdk/layout';
-import { RickandmortyapiService } from '../../services/rickandmortyapi.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-header',
@@ -22,22 +19,20 @@ import { RickandmortyapiService } from '../../services/rickandmortyapi.service';
 export class HeaderComponent implements OnInit {
   private router = inject(Router);
   breakpointObserver = inject(BreakpointObserver);
-  rickandmortyapiService = inject(RickandmortyapiService);
 
   isSmallScreen = signal(false);
   toggleSearch = signal(false);
-  toggleFilter = output<boolean>();
 
-  search = new FormControl('', { nonNullable: true });
   togglePage = new FormControl('character', { nonNullable: true });
 
-  handleSearch() {
-    if (this.search.value && this.toggleSearch()) {
-      this.rickandmortyapiService.getAllCharacters({ name: this.search.value });
-    }
+  @Input() searchBy!: FormControl;
+  @Input() searchInput!: FormControl<string>;
 
-    this.toggleSearch.update((v) => !v);
-    this.toggleFilter.emit(this.toggleSearch());
+  submit = output();
+
+  handleSubmit(e?: SubmitEvent) {
+    if (e) e.preventDefault()
+    this.submit.emit();
   }
 
   handlePage() {
@@ -45,18 +40,14 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleButtonClass() {
-    if (this.search.value && !this.toggleSearch())
-      return 'material-icons md-blue';
+    // if (this.search.value && !this.toggleSearch())
+    //   return 'material-icons md-blue';
     return 'material-icons';
   }
 
   ngOnInit(): void {
-    this.breakpointObserver
-      .observe([
-        Breakpoints.XSmall,
-      ])
-      .subscribe((res) => {
-        this.isSmallScreen.set(res.matches);
-      });
+    this.breakpointObserver.observe([Breakpoints.XSmall]).subscribe((res) => {
+      this.isSmallScreen.set(res.matches);
+    });
   }
 }

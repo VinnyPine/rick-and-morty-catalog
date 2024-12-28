@@ -1,20 +1,37 @@
 <header>
   <div class="container">
-    <div class="input-search">
+    <form class="input-wrapper" (submit)="handleSubmit($event)">
       @if (toggleSearch() || !isSmallScreen()) {
+      <div class="search-input">
+        <select
+          class="search"
+          title="select search by"
+          name="searchBy"
+          id="select-Search"
+          [formControl]="searchBy"
+          ngDefaultControl="searchBy"
+        >
+          <option value="name">Name</option>
+          <option value="species">Species</option>
+          <option value="type">Types</option>
+        </select>
         <input
           type="text"
           name="search"
+          placeholder="Search"
           id="search"
-          [formControl]="search"
-          ngDefaultControl="search"
+          [formControl]="searchInput"
+          ngDefaultControl="searchInput"
         />
+      </div>
       }
-      <button type="button" (click)="handleSearch()">
+      <button type="button" (click)="handleSubmit()">
         <span [class]="toggleButtonClass()">search</span>
       </button>
-    </div>
+    </form>
     <select
+      class="page"
+      title="select page"
       name="page"
       id="select-page"
       [formControl]="togglePage"
