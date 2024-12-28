@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashboardComponent } from './dashboard.component';
+import { CharactersListComponent } from './characters-list.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
-describe('DashboardComponent', () => {
-  let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
+describe('CharactersListComponent', () => {
+  let component: CharactersListComponent;
+  let fixture: ComponentFixture<CharactersListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashboardComponent],
+      imports: [CharactersListComponent],
       providers: [provideHttpClient(), provideHttpClientTesting()]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DashboardComponent);
+    fixture = TestBed.createComponent(CharactersListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

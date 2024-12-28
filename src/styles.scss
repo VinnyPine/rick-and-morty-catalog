@@ -6,8 +6,20 @@
 
 body {
   font-family: Roboto, Inter;
+  height: 100vh;
 }
 
 ul, ol {
   list-style: none;
+}
+
+.container {
+    padding: 0 5px;
+}
+
+@media (min-screen: 600px) {
+  .container {
+    width: 95%;
+    margin: 0 auto;
+  }
 }

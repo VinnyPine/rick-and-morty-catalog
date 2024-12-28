@@ -9,21 +9,41 @@ header {
     align-items: center;
     height: 100%;
 
-    .input-search {
+    .input-wrapper {
       display: flex;
       align-items: center;
+      justify-content: space-evenly;
       gap: 2px;
-      width: 50%;
+      height: 50px;
+      width: 450px;
+      background-color: rgb(238, 238, 73);
+      border-radius: 8px;
 
-      input {
+      .search-input {
+        display: flex;
+        align-items: center;
+
         height: 40px;
         border: none;
         border-radius: 8px;
-        outline: none;
-        padding-left: 6px;
-        font-size: medium;
-        max-width: 300px;
+        overflow: hidden;
         width: 80%;
+
+        select {
+          height: 100%;
+          width: 30%;
+          border-radius: 0;
+        }
+
+        input {
+          height: 100%;
+          border: none;
+          outline: none;
+          padding-left: 6px;
+          font-size: medium;
+          width: 100%;
+          background: none;
+        }
       }
 
       button {
@@ -37,6 +57,7 @@ header {
       border: none;
       outline: none;
       border-radius: 8px;
+      background-color: rgb(238, 238, 73);
     }
   }
 }
@@ -51,7 +72,7 @@ header {
 
 @media (min-width: 800px) {
   header {
-    height: 70px;
+    height: 10vh;
 
     > .container {
       .input-search {

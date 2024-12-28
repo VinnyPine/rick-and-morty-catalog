@@ -1,0 +1,86 @@
+<aside>
+  <form [formGroup]="filtersForm">
+    <div class="radio-wrapper">
+      <div>
+        <span>Status</span>
+        <button type="button" (click)="unselectStatus()">X</button>
+      </div>
+      <div>
+        <input
+          type="radio"
+          name="status"
+          id="status-alive"
+          value="alive"
+          formControlName="status"
+        />
+        <label for="status-alive">Alive</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          name="status"
+          id="status-dead"
+          value="dead"
+          formControlName="status"
+        />
+        <label for="status-dead">Dead</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          name="status"
+          id="status-unknown"
+          value="unknown"
+          formControlName="status"
+        />
+        <label for="status-unknown">Unknown</label>
+      </div>
+    </div>
+    <div class="radio-wrapper">
+      <div>
+        <span>Gender</span>
+        <button type="button" (click)="unselectGender()">X</button>
+      </div>
+      <div>
+        <input
+        type="radio"
+        name="gender"
+        id="gender-male"
+        value="male"
+        formControlName="gender"
+      />
+      <label for="gender-male">Male</label>
+      </div>
+      <div>
+        <input
+        type="radio"
+        name="gender"
+        id="gender-female"
+        value="female"
+        formControlName="gender"
+      />
+      <label for="gender-female">Female</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          name="gender"
+          id="gender-genderless"
+          value="genderless"
+          formControlName="gender"
+        />
+        <label for="gender-genderless">Genderless</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          name="gender"
+          id="gender-unknown"
+          value="unknown"
+          formControlName="gender"
+        />
+        <label for="gender-unknown">Unknown</label>
+      </div>
+    </div>
+  </form>
+</aside>

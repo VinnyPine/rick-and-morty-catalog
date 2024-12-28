@@ -1,7 +1,14 @@
-import { Component, inject, OnInit, output, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnInit,
+  output,
+  signal,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BreakpointObserver, Breakpoints, LayoutModule, MediaMatcher } from '@angular/cdk/layout'
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-header',
@@ -12,22 +19,20 @@ import { BreakpointObserver, Breakpoints, LayoutModule, MediaMatcher } from '@an
 export class HeaderComponent implements OnInit {
   private router = inject(Router);
   breakpointObserver = inject(BreakpointObserver);
-  isLargeScreen = signal(false);
+
+  isSmallScreen = signal(false);
   toggleSearch = signal(false);
-  toggleFilter = output<boolean>();
-  search = new FormControl('', { nonNullable: true });
+
   togglePage = new FormControl('character', { nonNullable: true });
 
-  handleSearch() {
-    console.log("🚀 ~ HeaderComponent ~ handleSearch ~ this.isLargeScreen():", this.isLargeScreen())
+  @Input() searchBy!: FormControl;
+  @Input() searchInput!: FormControl<string>;
 
-    if (this.search.value && this.toggleSearch()) {
-      console.log('🚀 ~ HeaderComponent ~ REQUEST');
-      console.log('🚀 ~ HeaderComponent ~ this.search:', this.search);
-    }
+  submit = output();
 
-    this.toggleSearch.update((v) => !v);
-    this.toggleFilter.emit(this.toggleSearch());
+  handleSubmit(e?: SubmitEvent) {
+    if (e) e.preventDefault()
+    this.submit.emit();
   }
 
   handlePage() {
@@ -35,19 +40,14 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleButtonClass() {
-    if (this.search.value && !this.toggleSearch())
-      return 'material-icons md-blue';
+    // if (this.search.value && !this.toggleSearch())
+    //   return 'material-icons md-blue';
     return 'material-icons';
   }
 
   ngOnInit(): void {
-    this.breakpointObserver.observe([
-      Breakpoints.Small,
-      Breakpoints.Medium,
-      Breakpoints.Large,
-      Breakpoints.XLarge,
-    ]).subscribe(res => {
-      this.isLargeScreen.set(res.matches)
-    })
+    this.breakpointObserver.observe([Breakpoints.XSmall]).subscribe((res) => {
+      this.isSmallScreen.set(res.matches);
+    });
   }
 }

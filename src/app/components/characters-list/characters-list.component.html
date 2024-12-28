@@ -1,0 +1,62 @@
+<div class="container">
+  @if (listHasItems()) {
+    <ul>
+      @for (char of list(); track char.id;) {
+        <li class="card" (click)="selectCharacter(char.id)">
+          <img [src]="char.image" />
+          <div class="info">
+            <span class="name">{{ char.name }}</span>
+            <div class="content">
+              <span
+                >status: <span>{{ char.status }}</span></span
+              >
+              <span
+                >gender: <span>{{ char.gender }}</span></span
+              >
+              <span
+                >origin: <span>{{ char.origin.name }}</span></span
+              >
+              <span
+                >species: <span>{{ char.species }}</span></span
+              >
+            </div>
+          </div>
+        </li>
+      }
+
+    </ul>
+  } @else {
+  <div class="no-items"><span>No items, Try another filter.</span></div>
+  }
+</div>
+
+<!-- <cdk-virtual-scroll-viewport
+    class="viewport"
+    itemSize="100"
+    (scrolledIndexChange)="scrolling($event)"
+  >
+    <ul>
+      <ng-container *cdkVirtualFor="let char of list(); let count = count; let last = last;">
+        <li class="card" (click)="selectCharacter(char.id)">
+          <img [src]="char.image" />
+          <div class="info">
+            <span class="name">{{ char.name }}</span>
+            <div class="content">
+              <span
+                >status: <span class="green">{{ char.status }}</span></span
+              >
+              <span
+                >gender: <span class="green">{{ char.gender }}</span></span
+              >
+              <span
+                >origin: <span class="green">{{ char.origin.name }}</span></span
+              >
+              <span
+                >species: <span class="green">{{ char.species }}</span></span
+              >
+            </div>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </cdk-virtual-scroll-viewport> -->

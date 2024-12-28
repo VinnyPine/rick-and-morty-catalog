@@ -1,2 +1,9 @@
-<app-header></app-header>
-<p>dashboard works!</p>
+<app-header
+  [searchBy]="searchBy"
+  [searchInput]="search"
+  (submit)="handleSearch()"
+></app-header>
+<div class="wrapper">
+  <app-menu [filtersForm]="filtersForm"></app-menu>
+  <router-outlet />
+</div>
