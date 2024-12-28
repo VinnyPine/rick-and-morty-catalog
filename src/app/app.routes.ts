@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CharactersListComponent } from './components/characters-list/characters-list.component';
+import { CharacterComponent } from './pages/character/character.component';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,10 @@ export const routes: Routes = [
         component: HeaderComponent, //select route test
       },
     ],
+  },
+  {
+    path: 'character/:id',
+    component: CharacterComponent,
   },
   {
     path: '',

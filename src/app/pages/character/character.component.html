@@ -1,0 +1,37 @@
+<header>
+  <button type="button" (click)="backToSearch()">Back to Search</button>
+</header>
+<section>
+  <div class="container">
+    @if (character(); as char) {
+    <div class="wrapper">
+      <img [src]="char.image" title="character image" />
+      <div class="info">
+        <span class="name">{{ char.name }}</span>
+        <span class="key">
+          status:
+          <span class="value">{{ char.status }}</span>
+        </span>
+        <span class="key">
+          gender:
+          <span class="value">{{ char.gender }}</span>
+        </span>
+        <span class="key">
+          origin:
+          <span class="value">{{ char.origin.name }}</span>
+        </span>
+        <span class="key">
+          species:
+          <span class="value">{{ char.species }}</span>
+        </span>
+        <span class="key">
+          location:
+          <span class="value">{{ char.location.name }}</span>
+        </span>
+      </div>
+    </div>
+    } @else {
+    <div>Empty...</div>
+    }
+  </div>
+</section>
