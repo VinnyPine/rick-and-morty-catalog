@@ -16,7 +16,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class RickandmortyapiService {
   private fetch = inject(FetchService);
-  private apiUrl = 'https://rickandmortyapi.com/api/';
+  private apiUrl = 'https://rickandmortyapi.com/api';
 
   private charactersList = signal<Character[] | null>(null);
   private selectedCharacter = signal<Character | null>(null);
@@ -45,6 +45,7 @@ export class RickandmortyapiService {
   }
 
   getAllCharacters(filter?: FilterCharacters) {
+    console.log("🚀 ~ RickandmortyapiService ~ getAllCharacters ~ filter:", filter)
     this.startLoading();
     const fetch$ = this.fetch
       .params(this.trimFalsyValues(filter))
