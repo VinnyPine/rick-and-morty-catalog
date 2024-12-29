@@ -1,7 +1,0 @@
-{
-  "routes": {
-    "/rick-and-morty-catalog": {},
-    "/rick-and-morty-catalog/character": {},
-    "/rick-and-morty-catalog/episode": {}
-  }
-}
