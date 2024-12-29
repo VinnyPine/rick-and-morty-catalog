@@ -1,0 +1,6 @@
+[build]
+  command = "ng build"
+  functions = "netlify/functions"
+  publish = "docs/rick-and-morty-catalog/browser"
+
+
