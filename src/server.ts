@@ -1,3 +1,4 @@
+import { render } from '@netlify/angular-runtime/common-engine';
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine, isMainModule } from '@angular/ssr/node';
 import express from 'express';
