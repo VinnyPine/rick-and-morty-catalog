@@ -29,13 +29,8 @@ export const routes: Routes = [
     component: EpisodeComponent,
   },
   {
-    path: '',
-    redirectTo: 'character',
-    pathMatch: 'full',
-  },
-  {
     path: '**',
-    redirectTo: 'character',
-    pathMatch: 'full',
+    redirectTo: '/character',
+    pathMatch: 'full'
   },
 ];
