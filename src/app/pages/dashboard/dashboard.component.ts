@@ -52,7 +52,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     const page = this.router.url.replace('/', '');
     if (page === 'episode') this.togglePage.setValue(page);
-    if (page === '') this.router.navigate(['character']);
 
     this.filtersForm.valueChanges.subscribe((value) => {
       this.handleSearch();

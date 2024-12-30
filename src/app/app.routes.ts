@@ -8,6 +8,11 @@ import { EpisodeComponent } from './pages/episode/episode.component';
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: '/character',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
     component: DashboardComponent,
     children: [
       {
