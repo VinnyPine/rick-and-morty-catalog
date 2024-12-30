@@ -12,6 +12,14 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'character/:id',
+    component: CharacterComponent,
+  },
+  {
+    path: 'episode/:id',
+    component: EpisodeComponent,
+  },
+  {
     path: '',
     component: DashboardComponent,
     children: [
@@ -24,14 +32,6 @@ export const routes: Routes = [
         component: EpisodesListComponent,
       },
     ],
-  },
-  {
-    path: 'character/:id',
-    component: CharacterComponent,
-  },
-  {
-    path: 'episode/:id',
-    component: EpisodeComponent,
   },
   {
     path: '**',
