@@ -1,6 +1,7 @@
 export default (request: Request) => {
   const url = new URL(request.url);
   const path = url.pathname;
+  console.log("🚀 ~ path:", path)
 
   const isStaticFile = path.match(
     /\.(css|js|mjs|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|map)$/
@@ -9,6 +10,7 @@ export default (request: Request) => {
   const matchDynamicRoute = path.match(/^\/(character|episode)\/(\d+)$/);
 
   if (isStaticFile || isStaticRoutes) return;
+  console.log("🔥 ~ path:", path)
   if (!matchDynamicRoute) return Response.redirect('/', 301);
 
   const route = matchDynamicRoute[0];
