@@ -1,4 +1,10 @@
-import { Component, inject, Input, numberAttribute, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  numberAttribute,
+  PLATFORM_ID,
+} from '@angular/core';
 import { RickandmortyapiService } from '../../services/rickandmortyapi.service';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
@@ -16,8 +22,7 @@ export class CharacterComponent {
 
   @Input({ required: true, transform: numberAttribute })
   set id(id: number) {
-    if (isPlatformBrowser(this.platformId))
-      this.rickandmortyapiService.getCharacter(id);
+    this.rickandmortyapiService.getCharacter(id);
   }
 
   character() {
@@ -26,5 +31,10 @@ export class CharacterComponent {
 
   backToSearch() {
     this.router.navigate(['character']);
+  }
+
+  ngOnInit() {
+    console.log('🌙 character init');
+    if (isPlatformBrowser(this.platformId)) console.log('🌞 Browser');
   }
 }

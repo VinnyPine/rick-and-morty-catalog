@@ -20,14 +20,6 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'char/:id',
-    // component: CharacterComponent,
-    loadComponent: () =>
-      import('./pages/character/character.component').then(
-        ({ CharacterComponent }) => CharacterComponent
-      ),
-  },
-  {
     path: 'episode/:id',
     // component: EpisodeComponent,
     loadComponent: () =>
@@ -53,7 +45,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/character',
+    redirectTo: 'character',
     pathMatch: 'full',
   },
 ];
