@@ -20,6 +20,14 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'char/:id',
+    // component: CharacterComponent,
+    loadComponent: () =>
+      import('./pages/character/character.component').then(
+        ({ CharacterComponent }) => CharacterComponent
+      ),
+  },
+  {
     path: 'episode/:id',
     // component: EpisodeComponent,
     loadComponent: () =>
