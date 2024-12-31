@@ -9,15 +9,23 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: '/character',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'character/:id',
-    component: CharacterComponent,
+    // component: CharacterComponent,
+    loadComponent: () =>
+      import('./pages/character/character.component').then(
+        ({ CharacterComponent }) => CharacterComponent
+      ),
   },
   {
     path: 'episode/:id',
-    component: EpisodeComponent,
+    // component: EpisodeComponent,
+    loadComponent: () =>
+      import('./pages/episode/episode.component').then(
+        ({ EpisodeComponent }) => EpisodeComponent
+      ),
   },
   {
     path: '',
@@ -26,16 +34,18 @@ export const routes: Routes = [
       {
         path: 'character',
         component: CharactersListComponent,
+        pathMatch: 'full',
       },
       {
         path: 'episode',
         component: EpisodesListComponent,
+        pathMatch: 'full',
       },
     ],
   },
   {
     path: '**',
     redirectTo: '/character',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
 ];
